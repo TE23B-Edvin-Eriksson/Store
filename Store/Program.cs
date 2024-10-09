@@ -1,41 +1,49 @@
-﻿int i = 0;
-while (i < 10)
+﻿int kr = 100; // Spelaren börjar med 100 kronor
+
+while (kr > 0)
 {
-    Console.WriteLine("Hej!");
-    i ++;
-}
+    Console.WriteLine($"Du har {kr} kronor.");
+    Console.WriteLine("Välj ett föremål att köpa (eller skriv 4 för att avsluta):");
+    Console.WriteLine("1. Äpple (10 kr)");
+    Console.WriteLine("2. Banan (20 kr)");
+    Console.WriteLine("3. Apelsin (30 kr)");
+    Console.WriteLine("4. Avsluta");
 
+    int val = int.Parse(Console.ReadLine());
 
-for (int j=0; j < 10; j++)
-{
-    Console.WriteLine("Hej!");
-}
-
-
-
-
-int ageNum = 0;
-bool success = false;
-
-while (success != true)
-{
-    Console.WriteLine("Age:");
-    string age = Console.ReadLine();
-
-
-    success = int.TryParse(age, out ageNum);
-
-    if (success == false)
+    if (val == 4) // Avsluta spelet om spelaren väljer 4
     {
-        Console.WriteLine("Skriv en siffra!");
+        Console.WriteLine("Tack för att du handlade! Hejdå!");
+        break;
+    }
+
+    int pris = val == 1 ? 10 : val == 2 ? 20 : val == 3 ? 30 : 0;
+
+    if (pris == 0) // Ogiltigt val om spelaren väljer något annat än 1, 2, 3 eller 4
+    {
+        Console.WriteLine("Ogiltigt val. Försök igen.");
+        continue;
+    }
+
+    Console.WriteLine("Hur många vill du köpa?");
+    int antal = int.Parse(Console.ReadLine());
+    int totalKostnad = pris * antal;
+
+    if (totalKostnad > kr)
+    {
+        Console.WriteLine("Det har du inte råd med!");
+    }
+    else
+    {
+        kr -= totalKostnad;
+        Console.WriteLine($"Du köpte {antal} föremål för totalt {totalKostnad} kr. Du har {kr} kr kvar.");
     }
 }
 
-if (ageNum >= 18)
+if (kr <= 0)
 {
-    Console.WriteLine("Welcome!");
+    Console.WriteLine("Du har slut på pengar! Spelet är över.");
 }
-
 
 
 Console.ReadLine();
